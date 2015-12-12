@@ -1,12 +1,16 @@
 language: java
 
 install:
-  - mkdir -p ~/.ant/lib
-  - ln -s -T /usr/share/java/ivy.jar ~/.ant/lib/ivy.jar
+  - ls -hal
+  - pwd
+  - mkdir -p ~/.ant/lib && ln -s -T /usr/share/java/ivy.jar ~/.ant/lib/ivy.jar
   - ant resolve-ivy-deps
+  - ls -hal
   - ant wpilib-for-ci
 
 script:
+  - ls -hal
+  - pwd
   - ant test
 
 jdk:
