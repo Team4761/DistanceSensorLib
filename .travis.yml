@@ -1,10 +1,11 @@
 language: java
 
 install:
+  - ant resolve-ivy-deps
   - ant wpilib-for-ci
 
 script:
-  - ant jar
+  - ant test
 
 jdk:
   - oraclejdk8
