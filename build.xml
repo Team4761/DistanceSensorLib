@@ -2,8 +2,10 @@
 
 <project name="DistanceSensorLib" default="jar" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
-	<property name="src.dir" value="src" />
-	<property name="bin.dir" value="bin" />
+	<property name="main.src.dir" value="src/main/java" />
+	<property name="main.bin.dir" value="bin/main" />
+	<property name="test.src.dir" value="src/test/java" />
+	<property name="test.bin.dir" value="bin/test" />
 	<property name="dist.dir" value="dist" />
 
 	<path id="classpath">
@@ -16,21 +18,51 @@
 	</path>
 
 	<target name="compile" description="Compile source files to .class files">
-		<mkdir dir="${bin.dir}" />
-		<javac destdir="${bin.dir}" failonerror="true" includeantruntime="false">
-			<src path="${src.dir}" />
+		<mkdir dir="${main.bin.dir}" />
+		<javac destdir="${main.bin.dir}" failonerror="true" includeantruntime="false">
+			<src path="${main.src.dir}" />
 			<classpath refid="classpath" />
 		</javac>
 	</target>
 
 	<target name="jar" depends="compile" description="Make JAR archive">
 		<mkdir dir="${dist.dir}" />
-		<jar destfile="${dist.dir}/DistanceSensorLib.jar" basedir="${bin.dir}" />
+		<jar destfile="${dist.dir}/DistanceSensorLib.jar" basedir="${main.bin.dir}" />
+	</target>
+
+	<target name="test-compile" depends="compile" description="Compile JUnit tests to .class files">
+		<mkdir dir="${test.bin.dir}" />
+		<javac destdir="${test.bin.dir}" failonerror="true" includeantruntime="false">
+			<src path="${test.src.dir}" />
+			<classpath refid="classpath" />
+			<classpath>
+				<pathelement location="${main.bin.dir}"/>
+			</classpath>
+		</javac>
+	</target>
+	
+	<target name="test" depends="compile,test-compile">
+		<junit printsummary="on" haltonfailure="yes">
+			<formatter type="brief" usefile="false" />
+			<classpath refid="classpath" />
+			<classpath>
+				<pathelement location="${main.bin.dir}"/>
+				<pathelement location="${test.bin.dir}"/>
+			</classpath>
+			<batchtest>
+				<fileset dir="${test.src.dir}">
+					<include name="**/*.java" />
+				</fileset>
+			</batchtest>
+		</junit>
 	</target>
 
 	<target name="clean" description="Clean output directories">
 		<delete>
-			<fileset dir="${bin.dir}">
+			<fileset dir="${main.bin.dir}">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="${test.bin.dir}">
 				<include name="**/*.class" />
 			</fileset>
 			<fileset dir="${dist.dir}">
@@ -42,10 +74,11 @@
 	<target name="resolve-ivy-deps" description="Fetch dependencies with Ivy">
 		<ivy:retrieve />
 	</target>
+
 	<!-- 
-    Only use on computers that don't have WPILib installed.
-    Bad things _might_ happen but I don't know for sure and don't want to volunteer my installation as a guinea pig.
-    -->
+	Only use on computers that don't have WPILib installed.
+	Bad things _might_ happen but I don't know for sure and don't want to volunteer my installation as a guinea pig.
+	-->
 	<target name="wpilib-for-ci" description="Download and install WPILibJ for use on CI server">
 		<get src="https://gist.githubusercontent.com/simon-andrews/0127707da461e543cb76/raw/dl_wpilibjars.py" dest="dl_wpilibjars.py" />
 		<exec executable="python3">

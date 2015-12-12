@@ -17,7 +17,7 @@ public abstract class DistanceSensor {
 	 * @param sensor The AnalogInput object that is configured to the port the
 	 *               sensor is on
 	 */
-	protected DistanceSensor(AnalogInput sensor) {
+	public DistanceSensor(AnalogInput sensor) {
 		this.sensor = sensor;
 	}
 	
