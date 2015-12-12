@@ -1,6 +1,7 @@
 language: java
 
 install:
+  - ln -s -T /usr/share/java/ivy.jar ~/.ant/lib/ivy.jar
   - ant resolve-ivy-deps
   - ant wpilib-for-ci
 
@@ -16,4 +17,5 @@ jdk:
 addons:
   apt:
     packages:
+      - ivy
       - python3
