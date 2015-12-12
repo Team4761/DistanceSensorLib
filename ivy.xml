@@ -1,0 +1,7 @@
+<ivy-module version="2.0">
+    <info organisation="org.robockets" module="distancesensorlib"/>
+    <dependencies>
+        <dependency org="junit" name="junit" rev="4.12"/>
+        <dependency org="org.mockito" name="mockito-core" rev="2.0.2-beta"/>
+    </dependencies>
+</ivy-module>

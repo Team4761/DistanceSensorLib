@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="DistanceSensorLib" basedir="." default="jar">
+<project name="DistanceSensorLib" default="jar" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property name="src.dir" value="src" />
 	<property name="bin.dir" value="bin" />
@@ -8,6 +8,9 @@
 
 	<path id="classpath">
 		<fileset dir="${user.home}/wpilib/java/current/lib">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="lib">
 			<include name="*.jar" />
 		</fileset>
 	</path>
@@ -36,6 +39,9 @@
 		</delete>
 	</target>
 
+	<target name="resolve-ivy-deps" description="Fetch dependencies with Ivy">
+		<ivy:retrieve />
+	</target>
 	<!-- 
     Only use on computers that don't have WPILib installed.
     Bad things _might_ happen but I don't know for sure and don't want to volunteer my installation as a guinea pig.
