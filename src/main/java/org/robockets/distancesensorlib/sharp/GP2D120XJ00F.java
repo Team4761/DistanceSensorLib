@@ -23,7 +23,7 @@ public class GP2D120XJ00F extends DistanceSensor {
 	public double getDistanceCentimeters() {
 		double voltage = sensor.getVoltage();
 		double distance = 17.298 * Math.pow(voltage, 2) - 66.8913 * voltage + 58.504;
-		if(distance < 0) {
+		if (distance < 0) {
 			return 0;
 		}
 		return distance;

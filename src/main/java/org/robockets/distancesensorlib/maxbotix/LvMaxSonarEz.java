@@ -27,7 +27,7 @@ public class LvMaxSonarEz extends DistanceSensor {
 	public LvMaxSonarEz(AnalogInput sensor, double voltage) {
 		//TODO: Check minimum voltage. Pretty sure it isn't three.
 		super(sensor);
-		if(voltage < 3 || voltage > 5) {
+		if (voltage < 3 || voltage > 5) {
 			throw new IllegalArgumentException("Voltage must be between 3 and 5 (what the roboRIO can output)");
 		}
 		voltagePerInch = voltage / 512; //Calculates voltage scaling ((5.0V/512) = 0.009766V per inch)
