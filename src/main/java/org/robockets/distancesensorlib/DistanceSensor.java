@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.AnalogInput;
  * new distance sensor
  */
 public abstract class DistanceSensor {
-	protected AnalogInput sensor;
+	protected final AnalogInput sensor;
 	
 	/**
 	 * If you try to make an instance of DistanceSensor anywhere, Eclipse will
@@ -25,10 +25,19 @@ public abstract class DistanceSensor {
 	 * @return {@link edu.wpi.first.wpilibj.AnalogInput AnalogInput} instance
 	 * for the distance sensor.
 	 */
-	protected AnalogInput getAnalogInput() {
-		return this.sensor;
+	public AnalogInput getAnalogInput() {
+		return sensor;
 	}
-	
+
+	/**
+	 * @return Double that represents the current raw voltage the distance
+	 * sensor is putting out, with no fancy filters to convert it into a
+	 * human-friendly distance measurement.
+     */
+	public double getRawVoltage() {
+		return sensor.getVoltage();
+	}
+
 	/**
 	 * @return Distance in centimeters the sensor is from the closest object it
 	 * can detect
