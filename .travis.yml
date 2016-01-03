@@ -17,3 +17,8 @@ addons:
   apt:
     packages:
       - python3
+
+matrix:
+  allow_failures:
+    - jdk: oraclejdk7
+    - jdk: openjdk7
