@@ -1,10 +1,4 @@
 language: java
 
-script:
-  - mvn install
-
 jdk:
   - oraclejdk8
-  - oraclejdk7
-  - openjdk7
-
