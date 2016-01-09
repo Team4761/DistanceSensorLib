@@ -34,3 +34,5 @@ gradle/.launch/
 ehthumbs.db
 Thumbs.db
 
+# Maven
+target/
